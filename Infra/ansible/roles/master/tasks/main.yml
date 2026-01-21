@@ -6,6 +6,3 @@
 
 - name: Master | Setup etcd
   include_tasks: etcd.yml
-
-- name: Master | Provide join command to workers
-  include_tasks: join.yml
