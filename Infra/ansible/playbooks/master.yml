@@ -1,0 +1,6 @@
+- name: Apply master configuration
+  hosts: master
+  become: yes
+  roles:
+    - master
+    

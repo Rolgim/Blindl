@@ -1,0 +1,5 @@
+- name: Bootstrap minimal OS
+  hosts: all
+  become: yes
+  roles:
+    - bootstrap

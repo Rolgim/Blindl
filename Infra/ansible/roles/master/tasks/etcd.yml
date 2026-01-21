@@ -1,0 +1,22 @@
+---
+- name: Download etcd archive
+  ansible.builtin.get_url:
+    url: "https://github.com/etcd-io/etcd/releases/download/{{ etcd_version }}/etcd-{{ etcd_version }}-linux-{{ etcd_arch }}.tar.gz"
+    dest: "/tmp/etcd-{{ etcd_version }}-linux-{{ etcd_arch }}.tar.gz"
+    mode: '0644'
+
+- name: Extract etcd archive
+  ansible.builtin.unarchive:
+    src: "/tmp/etcd-{{ etcd_version }}-linux-{{ etcd_arch }}.tar.gz"
+    dest: /tmp
+    remote_src: yes
+    creates: "/tmp/etcd-{{ etcd_version }}-linux-{{ etcd_arch }}/etcdctl"
+
+- name: Install etcdctl
+  ansible.builtin.copy:
+    src: "/tmp/etcd-{{ etcd_version }}-linux-{{ etcd_arch }}/etcdctl"
+    dest: /usr/local/bin/etcdctl
+    owner: root
+    group: root
+    mode: '0755'
+    remote_src: yes

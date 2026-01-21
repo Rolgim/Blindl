@@ -1,0 +1,6 @@
+---
+- name: Apply worker configuration
+  hosts: worker
+  become: yes
+  roles:
+    - worker

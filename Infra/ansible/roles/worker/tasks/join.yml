@@ -1,0 +1,43 @@
+---
+- name: Wait for master API to be reachable
+  ansible.builtin.wait_for:
+    host: "{{ hostvars['k8s-master'].ansible_host }}"
+    port: 6443
+    delay: 5
+    timeout: 300
+
+- name: Get join command from master
+  command: kubeadm token create --print-join-command
+  delegate_to: k8s-master
+  register: kubeadm_join_cmd
+  changed_when: false
+  run_once: true
+
+- name: Check if node is already part of cluster
+  command: kubectl get nodes {{ inventory_hostname }} -o jsonpath='{.metadata.name}'
+  register: node_check
+  ignore_errors: yes
+  environment:
+    KUBECONFIG: /home/vagrant/.kube/config
+  delegate_to: k8s-master
+
+- name: Join Kubernetes cluster if not already joined
+  command: "{{ kubeadm_join_cmd.stdout }} --ignore-preflight-errors=FileAvailable,Port"
+  become: yes
+  when: node_check.rc != 0
+
+- name: Ensure kubelet is running
+  ansible.builtin.systemd:
+    name: kubelet
+    state: started
+    enabled: yes
+
+- name: Wait for node to become Ready
+  command: kubectl get nodes {{ inventory_hostname }} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}'
+  register: node_ready
+  until: node_ready.stdout == "True"
+  retries: 10
+  delay: 10
+  environment:
+    KUBECONFIG: /home/vagrant/.kube/config
+  delegate_to: k8s-master

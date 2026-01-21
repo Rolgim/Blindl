@@ -1,0 +1,18 @@
+- name: Install Flannel manifest
+  ansible.builtin.copy:
+    src: kube-flannel.yml
+    dest: /home/vagrant/kube-flannel.yml
+    owner: vagrant
+    group: vagrant
+    mode: '0644'
+
+- name: Apply Flannel CNI
+  ansible.builtin.command:
+    argv:
+      - kubectl
+      - apply
+      - -f
+      - /home/vagrant/kube-flannel.yml
+      - --kubeconfig=/etc/kubernetes/admin.conf
+  register: flannel_apply
+  changed_when: "'configured' in flannel_apply.stdout or 'created' in flannel_apply.stdout"

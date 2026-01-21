@@ -1,0 +1,11 @@
+- name: Master | Setup du control-plane
+  include_tasks: setup.yml
+
+- name: Master | Configuration réseau
+  include_tasks: network.yml
+
+- name: Master | Setup etcd
+  include_tasks: etcd.yml
+
+- name: Master | Provide join command to workers
+  include_tasks: join.yml

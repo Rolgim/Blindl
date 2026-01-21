@@ -1,0 +1,2 @@
+etcd_version: "v3.5.1"
+etcd_arch: "amd64"

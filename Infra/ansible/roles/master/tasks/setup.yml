@@ -1,0 +1,51 @@
+---
+- name: Copy kubeadm config
+  ansible.builtin.copy:
+    src: files/kubeadm-config.yml
+    dest: ~/kubeadm-config.yml
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Initialize Kubernetes master
+  ansible.builtin.command:
+    argv:
+      - kubeadm
+      - init
+      - --config=/root/kubeadm-config.yml
+      - --upload-certs
+  args:
+    creates: /etc/kubernetes/admin.conf
+  become: yes
+
+- name: Set crictl params 
+  ansible.builtin.copy:
+    dest: /etc/crictl.yaml
+    content: |
+      runtime-endpoint: unix:///run/containerd/containerd.sock
+      image-endpoint: unix:///run/containerd/containerd.sock
+      timeout: 10
+    mode: '0644'
+  become: yes
+
+- name: Ensure kube config dir exists
+  ansible.builtin.file:
+    path: /home/vagrant/.kube
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0700'
+  become: yes
+
+- name: Copy admin.conf to user's kube config
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/vagrant/.kube/config
+    remote_src: yes
+    owner: vagrant
+    group: vagrant
+    mode: '0600'
+  become: yes
+
+
