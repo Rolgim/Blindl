@@ -1,0 +1,8 @@
+- name: Common | Install common tools
+  include_tasks: tools.yml
+
+- name: Common | Setup config & tools for k8s
+  include_tasks: kube.yml
+
+- name: Common | Monitoring
+  include_tasks: monitoring.yml
