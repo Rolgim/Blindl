@@ -1,3 +1,20 @@
+**/group_vars/*.yml
+
+# Vagrant / SSH
 .vagrant/
 .venv/
 vagrant-ssh
+vagrant-ssh/
+*.pem
+*.key
+*.pub
+
+# Docker volumes / data
+**/docker/grafana/storage/
+**/docker/prometheus/data/
+
+# Logs / temporaires
+*.log
+*.retry
+*.swp
+*.tmp
