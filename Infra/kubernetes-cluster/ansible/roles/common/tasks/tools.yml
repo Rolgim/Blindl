@@ -1,0 +1,24 @@
+---
+- name: Set timezone
+  ansible.builtin.timezone:
+    name: Europe/Paris
+
+- name: Install base system tools
+  ansible.builtin.apt:
+    name:
+      - vim
+      - curl
+      - wget
+      - jq
+      - htop
+      - tmux
+      - bash-completion
+      - ca-certificates
+      - gnupg
+      - lsb-release
+      - net-tools
+      - iputils-ping
+      - traceroute
+    state: present
+    update_cache: yes
+  become: yes
