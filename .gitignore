@@ -1,3 +1,4 @@
+**/.venv/
 **/group_vars/*.yml
 **/__pycache__/*
 
@@ -19,3 +20,8 @@ vagrant-ssh/
 *.retry
 *.swp
 *.tmp
+
+
+# backend env files
+App/backend/.env
+**/node_modules/
