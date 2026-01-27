@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from ..common import timestamp_schema, uuid_schema
 
 
-class Model(BaseModel):
+class Conversation(BaseModel):
     id: uuid_schema.Model
     match_id: uuid_schema.Model
     created_at: timestamp_schema.Model

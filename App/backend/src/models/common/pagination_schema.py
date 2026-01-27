@@ -7,6 +7,6 @@ from __future__ import annotations
 from pydantic import BaseModel, conint
 
 
-class Model(BaseModel):
+class Pagination(BaseModel):
     limit: conint(ge=1, le=100) | None = None
     offset: conint(ge=0) | None = None

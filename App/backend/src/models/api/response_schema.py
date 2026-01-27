@@ -11,6 +11,6 @@ from pydantic import BaseModel
 from . import error_schema
 
 
-class Model(BaseModel):
+class Response(BaseModel):
     data: Any | None = None
     error: error_schema.Model | None = None

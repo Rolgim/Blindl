@@ -15,5 +15,5 @@ class Decision(Enum):
     block = 'block'
 
 
-class Model(BaseModel):
+class MatchDecision(BaseModel):
     decision: Decision

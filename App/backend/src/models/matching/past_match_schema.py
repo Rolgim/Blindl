@@ -17,7 +17,7 @@ class Outcome(Enum):
     expired = 'expired'
 
 
-class Model(BaseModel):
+class PastMatch(BaseModel):
     id: uuid_schema.Model
     users: list[uuid_schema.Model] = Field(..., max_length=2, min_length=2)
     ended_at: timestamp_schema.Model

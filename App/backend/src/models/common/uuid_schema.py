@@ -9,5 +9,5 @@ from uuid import UUID
 from pydantic import RootModel
 
 
-class Model(RootModel[UUID]):
+class Uuid(RootModel[UUID]):
     root: UUID

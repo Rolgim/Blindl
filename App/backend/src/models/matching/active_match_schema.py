@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from ..common import timestamp_schema, uuid_schema
 
 
-class Model(BaseModel):
+class ActiveMatch(BaseModel):
     id: uuid_schema.Model
     users: list[uuid_schema.Model] = Field(..., max_length=2, min_length=2)
     started_at: timestamp_schema.Model

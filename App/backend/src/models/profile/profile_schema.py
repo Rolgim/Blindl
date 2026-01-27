@@ -11,7 +11,7 @@ from pydantic import AnyUrl, BaseModel, constr
 from ..common import uuid_schema
 
 
-class Model(BaseModel):
+class Profile(BaseModel):
     user_id: uuid_schema.Model
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None

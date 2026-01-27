@@ -7,5 +7,5 @@ from __future__ import annotations
 from pydantic import AwareDatetime, RootModel
 
 
-class Model(RootModel[AwareDatetime]):
+class Timestamp(RootModel[AwareDatetime]):
     root: AwareDatetime

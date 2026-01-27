@@ -16,7 +16,7 @@ class GenderPreference(Enum):
     other = 'other'
 
 
-class Model(BaseModel):
+class ProfilePreferences(BaseModel):
     age_min: conint(ge=18) | None = None
     age_max: conint(le=99) | None = None
     distance_km: conint(ge=1) | None = None

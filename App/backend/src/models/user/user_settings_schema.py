@@ -7,7 +7,7 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 
-class Model(BaseModel):
+class UserSettings(BaseModel):
     language: str | None = 'fr'
     email_notifications: bool | None = True
     weekly_pool_enabled: bool | None = True

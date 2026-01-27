@@ -18,7 +18,7 @@ class Status(Enum):
     expired = 'expired'
 
 
-class Model(BaseModel):
+class Match(BaseModel):
     match_id: uuid_schema.Model
     profile_id: uuid_schema.Model
     status: Status

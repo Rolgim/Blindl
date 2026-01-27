@@ -10,7 +10,7 @@ from ..common import uuid_schema
 from . import match_schema
 
 
-class Model(BaseModel):
+class WeeklyPool(BaseModel):
     user_id: uuid_schema.Model
     week: constr(pattern=r'^\d{4}-W\d{2}$')
     matches: list[match_schema.Model] = Field(..., max_length=10, min_length=1)

@@ -9,7 +9,7 @@ from pydantic import BaseModel, constr
 from ..common import timestamp_schema, uuid_schema
 
 
-class Model(BaseModel):
+class Message(BaseModel):
     id: uuid_schema.Model
     conversation_id: uuid_schema.Model
     sender_id: uuid_schema.Model
