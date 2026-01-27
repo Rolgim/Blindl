@@ -1,4 +1,5 @@
 **/group_vars/*.yml
+**/__pycache__/*
 
 # Vagrant / SSH
 .vagrant/

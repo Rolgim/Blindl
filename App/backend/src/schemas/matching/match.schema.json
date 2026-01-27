@@ -1,0 +1,13 @@
+{
+  "$id": "match.schema.json",
+  "type": "object",
+  "required": ["match_id", "profile_id", "status"],
+  "properties": {
+    "match_id": { "$ref": "../common/uuid.schema.json" },
+    "profile_id": { "$ref": "../common/uuid.schema.json" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "accepted", "rejected", "expired"]
+    }
+  }
+}

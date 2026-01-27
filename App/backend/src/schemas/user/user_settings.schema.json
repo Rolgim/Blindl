@@ -1,0 +1,10 @@
+{
+    "$id": "user_settings.schema.json",
+    "type": "object",
+    "properties": {
+      "language": { "type": "string", "default": "fr" },
+      "email_notifications": { "type": "boolean", "default": true },
+      "weekly_pool_enabled": { "type": "boolean", "default": true }
+    }
+  }
+  

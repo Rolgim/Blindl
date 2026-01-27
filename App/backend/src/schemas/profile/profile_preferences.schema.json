@@ -1,0 +1,17 @@
+{
+    "$id": "profile_preferences.schema.json",
+    "type": "object",
+    "properties": {
+      "age_min": { "type": "integer", "minimum": 18 },
+      "age_max": { "type": "integer", "maximum": 99 },
+      "distance_km": { "type": "integer", "minimum": 1 },
+      "gender_preferences": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["male", "female", "non_binary", "other"]
+        }
+      }
+    }
+  }
+  

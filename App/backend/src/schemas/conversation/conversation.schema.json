@@ -1,0 +1,10 @@
+{
+  "$id": "conversation.schema.json",
+  "type": "object",
+  "required": ["id", "match_id", "created_at"],
+  "properties": {
+    "id": { "$ref": "../common/uuid.schema.json" },
+    "match_id": { "$ref": "../common/uuid.schema.json" },
+    "created_at": { "$ref": "../common/timestamp.schema.json" }
+  }
+}
