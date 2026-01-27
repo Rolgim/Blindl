@@ -6,9 +6,10 @@ from __future__ import annotations
 
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from ..common import timestamp_schema, uuid_schema
+from .match_schema import Match
 
 
 class Outcome(Enum):
@@ -16,9 +17,8 @@ class Outcome(Enum):
     blocked = 'blocked'
     expired = 'expired'
 
-
-class PastMatch(BaseModel):
-    id: uuid_schema.Model
-    users: list[uuid_schema.Model] = Field(..., max_length=2, min_length=2)
-    ended_at: timestamp_schema.Model
+class PastMatch(Match):
+    id: uuid_schema.Uuid
+    users: list[uuid_schema.Uuid] = Field(..., max_length=2, min_length=2)
+    ended_at: timestamp_schema.Timestamp
     outcome: Outcome

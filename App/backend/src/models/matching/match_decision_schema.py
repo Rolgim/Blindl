@@ -8,12 +8,14 @@ from enum import Enum
 
 from pydantic import BaseModel
 
+from ..common.uuid_schema import Uuid
+
 
 class Decision(Enum):
-    continue_ = 'continue'
-    requeue = 'requeue'
-    block = 'block'
-
+    continue_ = "continue"
+    requeue = "requeue"
+    block = "block"
 
 class MatchDecision(BaseModel):
+    match_id: Uuid
     decision: Decision

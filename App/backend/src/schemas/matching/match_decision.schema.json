@@ -1,12 +1,14 @@
 {
-    "$id": "match_decision.schema.json",
-    "type": "object",
-    "required": ["decision"],
-    "properties": {
-      "decision": {
-        "type": "string",
-        "enum": ["continue", "requeue", "block"]
-      }
+  "$id": "match_decision.schema.json",
+  "type": "object",
+  "required": ["match_id", "decision"],
+  "properties": {
+    "match_id": {
+      "$ref": "../common/uuid.schema.json"
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["continue", "requeue", "block"]
     }
   }
-  
+}

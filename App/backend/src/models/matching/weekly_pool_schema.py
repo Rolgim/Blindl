@@ -11,6 +11,6 @@ from . import match_schema
 
 
 class WeeklyPool(BaseModel):
-    user_id: uuid_schema.Model
+    user_id: uuid_schema.Uuid
     week: constr(pattern=r'^\d{4}-W\d{2}$')
-    matches: list[match_schema.Model] = Field(..., max_length=10, min_length=1)
+    matches: list[match_schema.Match] = Field(..., max_length=10, min_length=1)

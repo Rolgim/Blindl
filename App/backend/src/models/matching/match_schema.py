@@ -19,6 +19,6 @@ class Status(Enum):
 
 
 class Match(BaseModel):
-    match_id: uuid_schema.Model
-    profile_id: uuid_schema.Model
+    match_id: uuid_schema.Uuid
+    profile_id: uuid_schema.Uuid
     status: Status
