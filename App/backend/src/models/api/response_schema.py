@@ -13,4 +13,4 @@ from . import error_schema
 
 class Response(BaseModel):
     data: Any | None = None
-    error: error_schema.Model | None = None
+    error: error_schema.Error | None = None
