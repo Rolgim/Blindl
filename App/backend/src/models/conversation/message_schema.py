@@ -10,8 +10,8 @@ from ..common import timestamp_schema, uuid_schema
 
 
 class Message(BaseModel):
-    id: uuid_schema.Model
-    conversation_id: uuid_schema.Model
-    sender_id: uuid_schema.Model
+    id: uuid_schema.Uuid
+    conversation_id: uuid_schema.Uuid
+    sender_id: uuid_schema.Uuid
     content: constr(max_length=2000)
-    sent_at: timestamp_schema.Model
+    sent_at: timestamp_schema.Timestamp

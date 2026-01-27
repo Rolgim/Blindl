@@ -10,6 +10,6 @@ from ..common import timestamp_schema, uuid_schema
 
 
 class Conversation(BaseModel):
-    id: uuid_schema.Model
-    match_id: uuid_schema.Model
-    created_at: timestamp_schema.Model
+    id: uuid_schema.Uuid
+    match_id: uuid_schema.Uuid
+    created_at: timestamp_schema.Timestamp
