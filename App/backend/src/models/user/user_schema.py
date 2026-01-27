@@ -10,7 +10,7 @@ from ..common import timestamp_schema, uuid_schema
 
 
 class User(BaseModel):
-    id: uuid_schema.Model
+    id: uuid_schema.Uuid
     email: EmailStr
     is_active: bool | None = True
-    created_at: timestamp_schema.Model
+    created_at: timestamp_schema.Timestamp

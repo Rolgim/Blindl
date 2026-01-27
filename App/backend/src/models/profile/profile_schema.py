@@ -12,7 +12,7 @@ from ..common import uuid_schema
 
 
 class Profile(BaseModel):
-    user_id: uuid_schema.Model
+    user_id: uuid_schema.Uuid
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None
     birth_date: date | None = None
