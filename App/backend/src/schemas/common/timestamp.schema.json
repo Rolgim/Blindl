@@ -1,0 +1,5 @@
+{
+    "$id": "timestamp.schema.json",
+    "type": "string",
+    "format": "date-time"
+  }

@@ -1,0 +1,9 @@
+{
+    "$id": "response.schema.json",
+    "type": "object",
+    "properties": {
+      "data": {},
+      "error": { "$ref": "error.schema.json" }
+    }
+  }
+  

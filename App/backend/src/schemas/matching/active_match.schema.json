@@ -1,0 +1,16 @@
+{
+    "$id": "active_match.schema.json",
+    "type": "object",
+    "required": ["id", "users", "started_at"],
+    "properties": {
+      "id": { "$ref": "../common/uuid.schema.json" },
+      "users": {
+        "type": "array",
+        "items": { "$ref": "../common/uuid.schema.json" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "started_at": { "$ref": "../common/timestamp.schema.json" }
+    }
+  }
+  
