@@ -9,7 +9,7 @@ from pydantic import BaseModel, EmailStr
 from ..common import timestamp_schema, uuid_schema
 
 
-class Model(BaseModel):
+class User(BaseModel):
     id: uuid_schema.Model
     email: EmailStr
     is_active: bool | None = True
