@@ -1,8 +1,9 @@
 import pytest
 from pydantic import ValidationError
 
-from models.matching.weekly_pool_schema import WeeklyPool
 from models.matching.match_schema import Match
+from models.matching.weekly_pool_schema import WeeklyPool
+
 
 def test_weekly_pool_valid():
     weekly_pool = WeeklyPool(
