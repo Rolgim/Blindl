@@ -1,0 +1,15 @@
+{
+  "$id": "conversation.schema.json",
+  "type": "object",
+  "required": ["id", "match_id", "participants"],
+  "properties": {
+    "id": { "$ref": "../common/uuid.schema.json" },
+    "match_id": { "$ref": "../common/uuid.schema.json" },
+    "participants": {
+      "type": "array",
+      "items": { "$ref": "../common/uuid.schema.json" },
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}

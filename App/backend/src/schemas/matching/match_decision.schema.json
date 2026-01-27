@@ -1,0 +1,12 @@
+{
+    "$id": "match_decision.schema.json",
+    "type": "object",
+    "required": ["decision"],
+    "properties": {
+      "decision": {
+        "type": "string",
+        "enum": ["continue", "requeue", "block"]
+      }
+    }
+  }
+  

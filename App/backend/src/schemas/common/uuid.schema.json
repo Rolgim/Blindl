@@ -1,0 +1,5 @@
+{
+    "$id": "uuid.schema.json",
+    "type": "string",
+    "format": "uuid"
+}

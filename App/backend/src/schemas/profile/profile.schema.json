@@ -1,0 +1,16 @@
+{
+  "$id": "profile.schema.json",
+  "type": "object",
+  "required": ["user_id", "display_name"],
+  "properties": {
+    "user_id": { "$ref": "../common/uuid.schema.json" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "bio": { "type": "string", "maxLength": 500 },
+    "birth_date": { "type": "string", "format": "date" },
+    "photos": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "maxItems": 6
+    }
+  }
+}
