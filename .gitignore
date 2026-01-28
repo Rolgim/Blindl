@@ -20,7 +20,8 @@ vagrant-ssh/
 *.retry
 *.swp
 *.tmp
-
+*.pyc
+alembic.ini
 
 # backend env files
 App/backend/.env

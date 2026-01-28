@@ -16,7 +16,7 @@ services:
     build: .
     container_name: fastapi_backend
     volumes:
-      - ./src:/app/src
+      - .:/app
       - /app/.venv
     ports:
       - "8000:8000"
