@@ -1,9 +1,12 @@
+import logging
 import os
 import sys
 from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import create_engine, pool
+
+logger = logging.getLogger("app.alembic")
 
 # PATH FIX 
 sys.path.insert(0, os.getcwd())
@@ -22,17 +25,19 @@ import src.db.models
 target_metadata = Base.metadata
 
 # Debug 
-print("CWD:", os.getcwd())
-print("DATABASE_URL:", os.getenv("DATABASE_URL"))
-print("Tables:", list(Base.metadata.tables.keys()))
-
+logger.debug("CWD: %s", os.getcwd())
+logger.debug("DATABASE_URL is set: %s", bool(os.getenv("DATABASE_URL")))
+logger.info("Detected tables: %s", list(Base.metadata.tables.keys()))
 
 # OFFLINE MODE 
 def run_migrations_offline() -> None:
-    url = os.getenv("DATABASE_URL") 
+    url = os.getenv("DATABASE_URL")
 
     if not url:
+        logger.error("DATABASE_URL is not set")
         raise RuntimeError("DATABASE_URL is not set")
+
+    logger.info("Running migrations in OFFLINE mode")
 
     context.configure(
         url=url,
@@ -52,25 +57,25 @@ def run_migrations_online() -> None:
     url = os.getenv("DATABASE_URL")
 
     if not url:
+        logger.error("DATABASE_URL is not set")
         raise RuntimeError("DATABASE_URL is not set")
 
-    engine = create_engine(
-        url,
-        poolclass=pool.NullPool,
-    )
+    logger.info("Running migrations in ONLINE mode")
+
+    engine = create_engine(url, poolclass=pool.NullPool)
 
     with engine.connect() as connection:
+        logger.debug("Database connection established")
+
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
             compare_type=True,
             compare_server_default=True,
-            include_schemas=False,
         )
 
         with context.begin_transaction():
             context.run_migrations()
-
 
 # ENTRYPOINT
 if context.is_offline_mode():
