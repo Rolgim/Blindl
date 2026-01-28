@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import Date, ForeignKey, String
+from sqlalchemy import Date, ForeignKey, Integer, String
 from sqlalchemy.dialects.mysql import CHAR
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -14,11 +14,12 @@ class Profile(Base):
         CHAR(36),
         ForeignKey("users.id", ondelete="CASCADE"),
         primary_key=True,
+        nullable=False,
         )
 
-    display_name: Mapped[str] = mapped_column(String(100))
+    display_name: Mapped[str] = mapped_column(String(100), nullable=False)
     bio: Mapped[str | None] = mapped_column(String(500))
-    birth_date: Mapped[date | None] = mapped_column(Date)
+    birth_date: Mapped[date] = mapped_column(Date, nullable=False)
 
     user = relationship("User", backref="profile", uselist=False)
     preferences = relationship(
@@ -36,10 +37,11 @@ class ProfilePreferences(Base):
         CHAR(36),
         ForeignKey("profiles.user_id", ondelete="CASCADE"),
         primary_key=True,
+        nullable=False,
     )
 
-    min_age: Mapped[int | None]
-    max_age: Mapped[int | None]
-    distance_km: Mapped[int | None]
+    min_age: Mapped[int] = mapped_column(Integer, default=18, nullable=False)
+    max_age: Mapped[int] = mapped_column(Integer, default=100, nullable=False)
+    distance_km: Mapped[int] = mapped_column(Integer, default=50, nullable=False)
 
     profile = relationship("Profile", back_populates="preferences")

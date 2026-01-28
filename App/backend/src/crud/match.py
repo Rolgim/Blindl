@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
@@ -71,7 +71,7 @@ class CRUDMatch(CRUDBase[Match]):
 
     def end_match(self, db: Session, *, match: Match) -> Match:
         match.status = MatchStatus.PAST
-        match.ended_at = datetime.utcnow()
+        match.ended_at = datetime.now(timezone.utc)
         db.commit()
         db.refresh(match)
         return match
