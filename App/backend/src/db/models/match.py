@@ -6,7 +6,7 @@ from sqlalchemy import Enum, ForeignKey
 from sqlalchemy.dialects.mysql import CHAR
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.db.base import Base
+from ..base import Base
 
 
 class MatchStatus(PyEnum):
