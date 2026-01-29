@@ -4,10 +4,23 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
-class UserSettings(BaseModel):
+class UserSettingsCreate(BaseModel):
     language: str | None = 'fr'
     email_notifications: bool | None = True
     weekly_pool_enabled: bool | None = True
+
+    
+class UserSettingsUpdate(BaseModel):
+    language: str | None = None
+    email_notifications: bool | None = None
+    weekly_pool_enabled: bool | None = None
+
+
+class UserSettingsRead(BaseModel):
+    language: str | None = 'fr'
+    email_notifications: bool | None = True
+    weekly_pool_enabled: bool | None = True
+    model_config = ConfigDict(from_attributes=True)

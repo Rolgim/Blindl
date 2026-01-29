@@ -4,13 +4,23 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from uuid import UUID
 
-from ..common import timestamp_schema, uuid_schema
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
-class User(BaseModel):
-    id: uuid_schema.Uuid
+class UserCreate(BaseModel):
     email: EmailStr
+    username: str
+    password: str
+    
+
+class UserRead(BaseModel):
+    id: UUID
+    email: EmailStr
+    username: str
     is_active: bool | None = True
-    created_at: timestamp_schema.Timestamp
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
