@@ -6,7 +6,7 @@ Create Date: 2026-01-30 08:39:47.820811
 
 """
 from typing import Sequence, Union
-
+import geoalchemy2
 from alembic import op
 import sqlalchemy as sa
 
@@ -54,7 +54,7 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('user_id')
     )
-    op.create_index('idx_profiles_location', 'profiles', ['location'], unique=False, postgresql_using='gist')
+    op.create_index('idx_profiles_location', 'profiles', ['location'], unique=False, postgresql_using='gist', if_not_exists=True)
     op.create_table('user_settings',
     sa.Column('user_id', sa.UUID(), nullable=False),
     sa.Column('language', sa.String(length=5), server_default='en', nullable=False),

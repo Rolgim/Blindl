@@ -11,7 +11,6 @@ from db.models.message import Message
 from db.models.match import Match
 
 
-
 def test_user_email_unique(session):
     user1 = User(email="a@example.com", username="u1", hashed_password="pwd")
     user2 = User(email="a@example.com", username="u2", hashed_password="pwd")
@@ -61,3 +60,4 @@ def test_user_settings_relationship(session):
 
     db_user = session.get(User, user.id)
     assert db_user.settings.user_id == user.id
+

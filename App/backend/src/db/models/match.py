@@ -64,4 +64,5 @@ class Match(Base):
         "Conversation",
         back_populates="match",
         uselist=False,
+        passive_deletes=True, 
     )
