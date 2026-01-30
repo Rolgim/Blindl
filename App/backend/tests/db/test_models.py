@@ -61,7 +61,3 @@ def test_user_settings_relationship(session):
 
     db_user = session.get(User, user.id)
     assert db_user.settings.user_id == user.id
-    
-
-
-

@@ -28,7 +28,7 @@ class Conversation(Base):
         nullable=False,
     )
 
-    match = relationship("Match", backref="conversation", uselist=False)
+    match = relationship("Match", uselist=False, back_populates="conversation")
     messages = relationship(
         "Message",
         back_populates="conversation",

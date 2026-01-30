@@ -1,5 +1,7 @@
+import os
+
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 from db.base import Base
@@ -7,16 +9,29 @@ from db.base import Base
 
 @pytest.fixture(scope="session")
 def engine():
-    # Base test DB in memory (sqlite)
-    engine = create_engine("sqlite:///:memory:", echo=True, future=True)
-    Base.metadata.create_all(engine)
-    yield engine
+    database_url = os.environ["DATABASE_URL"]
+
+    engine = create_engine(
+        database_url,
+        echo=False,
+        future=True,
+    )
+
+    with engine.begin() as conn:
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS postgis"))
+
     Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+    yield engine
+
+    Base.metadata.drop_all(engine)
+    engine.dispose()
 
 
 @pytest.fixture(scope="function")
 def session(engine):
-    """Session rollback après chaque test"""
+    """Session rollback after testing"""
     connection = engine.connect()
     transaction = connection.begin()
     Session = sessionmaker(bind=connection)

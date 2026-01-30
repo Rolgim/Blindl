@@ -5,15 +5,30 @@
 from __future__ import annotations
 
 from datetime import date
+from uuid import UUID
 
-from pydantic import AnyUrl, BaseModel, constr
+from pydantic import validator
+from pydantic import AnyUrl, BaseModel, ConfigDict, constr
 
-from ..common import uuid_schema
 
-
-class Profile(BaseModel):
-    user_id: uuid_schema.Uuid
+class ProfileCreate(BaseModel):
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None
+    birth_date: date 
+    photos: list[AnyUrl] | None = None
+
+class ProfileRead(BaseModel):
+    user_id: UUID
+    display_name: constr(min_length=1)
+    bio: constr(max_length=500) | None = None
+    location: str 
+    birth_date: date | None = None
+    photos: list[AnyUrl] | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+class ProfileUpdate(BaseModel):
+    display_name: constr(min_length=1)
+    bio: constr(max_length=500) | None = None
+    location: str | None = None
     birth_date: date | None = None
     photos: list[AnyUrl] | None = None

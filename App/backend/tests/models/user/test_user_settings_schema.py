@@ -19,7 +19,7 @@ def test_create_user_settings_invalid():
         UserSettingsCreate(
             language=123,  # Invalid type
             email_notifications="yes",  # Invalid type
-            weekly_pool_enabled=None  # Valid, but let's test the others
+            weekly_pool_enabled=None  # Valid
         )
 
 def test_update_user_settings_valid():
@@ -37,7 +37,7 @@ def test_update_user_settings_invalid():
         UserSettingsUpdate(
             language=123,  # Invalid type
             email_notifications="yes",  # Invalid type
-            weekly_pool_enabled=None  # Valid, but let's test the others
+            weekly_pool_enabled=None  # Valid
         )
 
 def test_read_user_settings_valid():
@@ -55,5 +55,5 @@ def test_read_user_settings_invalid():
         UserSettingsRead(
             language=123,  # Invalid type
             email_notifications="yes",  # Invalid type
-            weekly_pool_enabled=None  # Valid, but let's test the others
+            weekly_pool_enabled=None  # Valid
         )

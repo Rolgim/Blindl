@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from enum import Enum
 
-from pydantic import BaseModel, conint
+from pydantic import BaseModel, ConfigDict, conint
 
 
 class GenderPreference(Enum):
@@ -15,9 +15,19 @@ class GenderPreference(Enum):
     non_binary = 'non_binary'
     other = 'other'
 
+class ProfilePreferencesCreate(BaseModel):
+    min_age: conint(ge=18) | None = 18
+    max_age: conint(le=100) | None = 100
+    distance_km: conint(ge=1) | None = 50
+    gender_preferences: list[GenderPreference] | None = None
 
-class ProfilePreferences(BaseModel):
-    age_min: conint(ge=18) | None = None
-    age_max: conint(le=99) | None = None
+
+class ProfilePreferencesUpdate(BaseModel):
+    min_age: conint(ge=18) | None = None
+    max_age: conint(le=100) | None = None
     distance_km: conint(ge=1) | None = None
     gender_preferences: list[GenderPreference] | None = None
+
+
+class ProfilePreferencesRead(ProfilePreferencesCreate):
+    model_config = ConfigDict(from_attributes=True)
