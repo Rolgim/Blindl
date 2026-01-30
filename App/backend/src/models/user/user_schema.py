@@ -11,12 +11,21 @@ from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserCreate(BaseModel):
+    """
+    Schema for creating a new user.
+    UUID is auto-generated. Is_active defaults to True. 
+    Will change if do not answer to match selection. 
+    """
     email: EmailStr
     username: str
     password: str
     
 
 class UserRead(BaseModel):
+    """
+    Schema for reading user information.
+    All information except password is included.
+    """
     id: UUID
     email: EmailStr
     username: str

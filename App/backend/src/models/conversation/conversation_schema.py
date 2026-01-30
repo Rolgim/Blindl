@@ -7,9 +7,19 @@ from pydantic import BaseModel, ConfigDict
 
 
 class ConversationCreate(BaseModel):
+    """
+    Schema for creating a new conversation.
+    match_id: UUID of the match the conversation belongs to.
+    """
     match_id: UUID
 
 class ConversationRead(BaseModel):
+    """
+    Schema for reading conversation information.
+    id: UUID of the conversation.
+    match_id: UUID of the match the conversation belongs to.
+    created_at: datetime when the conversation was created.
+    """
     id: UUID
     match_id: UUID
     created_at: datetime

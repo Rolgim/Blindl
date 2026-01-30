@@ -7,17 +7,25 @@ from __future__ import annotations
 from datetime import date
 from uuid import UUID
 
-from pydantic import validator
 from pydantic import AnyUrl, BaseModel, ConfigDict, constr
 
 
 class ProfileCreate(BaseModel):
+    """
+    Schema for creating a new user profile.
+    UUID is auto-generated.
+    Location is device-provided.
+    """
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None
     birth_date: date 
     photos: list[AnyUrl] | None = None
 
 class ProfileRead(BaseModel):
+    """
+    Schema for reading user profile information.
+    All information is included.
+    """
     user_id: UUID
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None
@@ -27,6 +35,10 @@ class ProfileRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 class ProfileUpdate(BaseModel):
+    """
+    Schema for updating user profile information.
+    All fields are optional.
+    """
     display_name: constr(min_length=1)
     bio: constr(max_length=500) | None = None
     location: str | None = None

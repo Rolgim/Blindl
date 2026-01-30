@@ -13,6 +13,10 @@ from .match_schema import MatchRead
 
 
 class ActiveMatchRead(MatchRead):
+    """
+    Schema for reading active match information.
+    allows to get the details of an active match between two users.
+    """
     id: UUID
     users: list[UUID] = Field(..., max_length=2, min_length=2)
     started_at: datetime

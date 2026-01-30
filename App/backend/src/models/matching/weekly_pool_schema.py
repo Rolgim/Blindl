@@ -12,11 +12,19 @@ from . import match_schema
 
 
 class WeeklyPoolRead(BaseModel):
+    """
+    Schema for reading a user's weekly pool of matches.
+    allows to get the matches proposed to a user for a specific week.
+    """
     user_id: UUID
     week: constr(pattern=r'^\d{4}-W\d{2}$')
     matches: list[match_schema.MatchRead] = Field(..., max_length=10, min_length=1)
 
 class WeeklyPoolUpdate(BaseModel):
+    """
+    Schema for updating a user's weekly pool of matches.
+    allows to update the matches proposed to a user for a specific week.
+    """
     user_id: UUID
     week: constr(pattern=r'^\d{4}-W\d{2}$')
     matches: list[match_schema.MatchRead] = Field(..., max_length=10, min_length=1)

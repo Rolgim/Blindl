@@ -13,16 +13,25 @@ class GenderPreference(Enum):
     male = 'male'
     female = 'female'
     non_binary = 'non_binary'
+    all = 'all'
     other = 'other'
 
 class ProfilePreferencesCreate(BaseModel):
+    """
+    Schema for creating profile preferences with default values.
+    All fields are optional.
+    """
     min_age: conint(ge=18) | None = 18
     max_age: conint(le=100) | None = 100
     distance_km: conint(ge=1) | None = 50
-    gender_preferences: list[GenderPreference] | None = None
+    gender_preferences: list[GenderPreference] | None = [GenderPreference.all]
 
 
 class ProfilePreferencesUpdate(BaseModel):
+    """
+    Schema for updating profile preferences.
+    All fields are optional.
+    """
     min_age: conint(ge=18) | None = None
     max_age: conint(le=100) | None = None
     distance_km: conint(ge=1) | None = None
@@ -30,4 +39,8 @@ class ProfilePreferencesUpdate(BaseModel):
 
 
 class ProfilePreferencesRead(ProfilePreferencesCreate):
+    """
+    Schema for reading profile preferences.
+    Same fields as creation schema. Except that come from database attributes.
+    """
     model_config = ConfigDict(from_attributes=True)

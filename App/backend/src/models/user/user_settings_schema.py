@@ -8,18 +8,27 @@ from pydantic import BaseModel, ConfigDict
 
 
 class UserSettingsCreate(BaseModel):
+    """
+    Schema for creating user settings with default values.
+    """
     language: str | None = 'fr'
     email_notifications: bool | None = True
     weekly_pool_enabled: bool | None = True
 
     
 class UserSettingsUpdate(BaseModel):
+    """
+    Schema for updating user settings.
+    """
     language: str | None = None
     email_notifications: bool | None = None
     weekly_pool_enabled: bool | None = None
 
 
 class UserSettingsRead(BaseModel):
+    """
+    Schema for reading user settings.
+    """
     language: str | None = 'fr'
     email_notifications: bool | None = True
     weekly_pool_enabled: bool | None = True

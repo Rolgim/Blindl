@@ -16,11 +16,19 @@ class Status(Enum):
     expired = 'expired'
 
 class MatchRead(BaseModel):
+    """
+    Schema for reading match information.
+    allows to get the status of a match for a specific profile.
+    """
     match_id: UUID
     profile_id: UUID
     status: Status
 
 class MatchUpdate(BaseModel):
+    """
+    Schema for updating match information.
+    allows to update the status of a match for a specific profile.
+    """
     match_id: UUID
     status: Status
 
