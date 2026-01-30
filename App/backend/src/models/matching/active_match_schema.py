@@ -4,13 +4,15 @@
 
 from __future__ import annotations
 
+from datetime import datetime
+from uuid import UUID
+
 from pydantic import Field
 
-from ..common import timestamp_schema, uuid_schema
-from .match_schema import Match
+from .match_schema import MatchRead
 
 
-class ActiveMatch(Match):
-    id: uuid_schema.Uuid
-    users: list[uuid_schema.Uuid] = Field(..., max_length=2, min_length=2)
-    started_at: timestamp_schema.Timestamp
+class ActiveMatchRead(MatchRead):
+    id: UUID
+    users: list[UUID] = Field(..., max_length=2, min_length=2)
+    started_at: datetime

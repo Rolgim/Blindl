@@ -5,20 +5,22 @@
 from __future__ import annotations
 
 from enum import Enum
+from uuid import UUID
 
 from pydantic import BaseModel
 
-from ..common import uuid_schema
-
 
 class Status(Enum):
-    pending = 'pending'
     accepted = 'accepted'
     rejected = 'rejected'
     expired = 'expired'
 
-
-class Match(BaseModel):
-    match_id: uuid_schema.Uuid
-    profile_id: uuid_schema.Uuid
+class MatchRead(BaseModel):
+    match_id: UUID
+    profile_id: UUID
     status: Status
+
+class MatchUpdate(BaseModel):
+    match_id: UUID
+    status: Status
+

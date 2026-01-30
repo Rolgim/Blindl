@@ -4,13 +4,19 @@
 
 from __future__ import annotations
 
+from uuid import UUID
+
 from pydantic import BaseModel, Field, constr
 
-from ..common import uuid_schema
 from . import match_schema
 
 
-class WeeklyPool(BaseModel):
-    user_id: uuid_schema.Uuid
+class WeeklyPoolRead(BaseModel):
+    user_id: UUID
     week: constr(pattern=r'^\d{4}-W\d{2}$')
-    matches: list[match_schema.Match] = Field(..., max_length=10, min_length=1)
+    matches: list[match_schema.MatchRead] = Field(..., max_length=10, min_length=1)
+
+class WeeklyPoolUpdate(BaseModel):
+    user_id: UUID
+    week: constr(pattern=r'^\d{4}-W\d{2}$')
+    matches: list[match_schema.MatchRead] = Field(..., max_length=10, min_length=1)
