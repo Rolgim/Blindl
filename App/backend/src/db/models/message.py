@@ -1,8 +1,8 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Text
-from sqlalchemy.dialects.mysql import CHAR
+from sqlalchemy import DateTime, ForeignKey, Index, Text, func
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..base import Base
@@ -10,17 +10,28 @@ from ..base import Base
 
 class Message(Base):
     __tablename__ = "messages"
+    __table_args__ = (
+        Index(
+            "ix_messages_conversation_created_at",
+            "conversation_id",
+            "created_at",
+        ),
+    )
 
-    id: Mapped[str] = mapped_column(CHAR(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
 
-    conversation_id: Mapped[str] = mapped_column(
-        CHAR(36),
+    conversation_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
         ForeignKey("conversations.id", ondelete="CASCADE"),
         nullable=False,
     )
 
-    sender_id: Mapped[str] = mapped_column(
-        CHAR(36),
+    sender_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
     )
@@ -28,7 +39,9 @@ class Message(Base):
     content: Mapped[str] = mapped_column(Text, nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
     )
 
     conversation = relationship("Conversation", back_populates="messages")

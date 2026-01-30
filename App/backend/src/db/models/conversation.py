@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey
-from sqlalchemy.dialects.mysql import CHAR
+from sqlalchemy import DateTime, ForeignKey, func
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..base import Base
@@ -10,19 +10,25 @@ from ..base import Base
 class Conversation(Base):
     __tablename__ = "conversations"
 
-    id: Mapped[str] = mapped_column(CHAR(36), primary_key=True)
-    match_id: Mapped[str] = mapped_column(
-        CHAR(36),
+    id: Mapped[UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+    )
+
+    match_id: Mapped[UUID] = mapped_column(
+        UUID(as_uuid=True),
         ForeignKey("matches.id", ondelete="CASCADE"),
         unique=True,
         nullable=False,
     )
 
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
     )
 
-    match = relationship("Match", backref="conversation")
+    match = relationship("Match", backref="conversation", uselist=False)
     messages = relationship(
         "Message",
         back_populates="conversation",

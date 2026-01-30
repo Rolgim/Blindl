@@ -1,16 +1,16 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: mysql_backend
-    command: --default-authentication-plugin=mysql_native_password
+    image: postgis/postgis:16-3.4
+    container_name: postgres_backend
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
     ports:
-      - "3306:3306"
+      - "5432:5432"
 
   backend:
     build: .
@@ -21,7 +21,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      DATABASE_URL: ${DATABASE_URL}
     depends_on:
       - db
 
